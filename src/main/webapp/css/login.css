@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #e0e0e0;
+    background: linear-gradient(135deg, #0d0d0d, #000000); 
+    position: relative;
+    overflow: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.login-card {
+    background: linear-gradient(145deg, #222222, #333333);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #f97316;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tagline {
+    font-size: 14px;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #cccccc;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    background: linear-gradient(145deg, #2c2c2c, #3a3a3a); /* Gradient effect for text fields */
+    border: none;
+    border-radius: 12px;
+    color: #f0f0f0;
+    font-size: 15px;
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+input::placeholder {
+    color: #888888;
+}
+
+input:focus {
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(145deg, #2d2d2d, #1f1f1f);
+    color: #f97316;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+button:hover {
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.5);
+    transform: translateY(-2px);
+}
+
+.links {
+    margin-top: 20px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.links a {
+    color: #f97316;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(249, 115, 22, 0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+}
+
+.links a:hover {
+    border-color: rgba(249, 115, 22, 0.7);
+}
+.error-message {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
