@@ -17,7 +17,7 @@
         <div class="container">
             <h1>FUEL YOUR FITNESS JOURNEY</h1>
             <p>Premium supplements for maximum results</p>
-            <a href="#supplements" class="btn">Shop Now</a>
+            <a href="product" class="btn">Shop Now</a>
         </div>
     </section>
 

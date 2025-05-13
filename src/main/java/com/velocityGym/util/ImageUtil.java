@@ -11,8 +11,8 @@ import jakarta.servlet.http.Part;
  * This class provides methods for extracting the file name from a {@link Part}
  * object and uploading the image file to a specified directory on the server.
  * </p>
- * @author Anish Shrestha
- * LMU ID 23048634
+ * 
+ * @author Anish Shrestha LMU ID 23048634
  */
 public class ImageUtil {
 
@@ -96,8 +96,15 @@ public class ImageUtil {
 			return false; // Upload failed
 		}
 	}
-	
+
+	/**
+	 * Returns the full save path for storing resources in the specified folder.
+	 * 
+	 * @param saveFolder The folder name where the resource will be saved.
+	 * @return The full save path as a string.
+	 */
+
 	public String getSavePath(String saveFolder) {
-		return "C:/Users/Anish/eclipse-workspace/velocityGym/src/main/webapp/resources/"+saveFolder+"/";
+		return "C:/Users/Anish/eclipse-workspace/velocityGym/src/main/webapp/resources/" + saveFolder + "/";
 	}
 }

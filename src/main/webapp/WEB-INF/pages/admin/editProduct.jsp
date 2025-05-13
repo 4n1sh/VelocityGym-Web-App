@@ -1,336 +1,246 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Velocity Gym - Admin Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a, #333333);
-            color: #ffffff;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #1e1e1e;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.6);
-        }
-
-        .sidebar .nav {
-            list-style-type: none;
-        }
-
-        .sidebar .nav li {
-            margin-bottom: 20px;
-        }
-
-        .sidebar .nav li a {
-            text-decoration: none;
-            color: #ff6200;
-            display: block;
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 12px 15px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .sidebar .nav li a:hover {
-            background-color: #ff6200;
-            color: #1a1a1a;
-        }
-
-        .logout {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333333;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            color: #ff6200;
-            font-weight: bold;
-        }
-
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .table-container {
-            background-color: #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .table-container h3 {
-            color: #ffffff;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #444444;
-            color: #ffffff;
-        }
-
-        table th {
-            background-color: #333333;
-            color: #ff6200;
-        }
-
-        table tr:hover {
-            background-color: #3a3a3a;
-        }
-
-        .btn-edit, .btn-delete {
-            background-color: #ff6200;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn-edit:hover, .btn-delete:hover {
-            background-color: #e74c3c;
-        }
-
-        form {
-            display: inline;
-        }
-
-        .add-product-form {
-            background-color: #333333;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .add-product-form input, .add-product-form select {
-            margin-bottom: 10px;
-            padding: 8px;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid #444444;
-            background-color: #1a1a1a;
-            color: #ffffff;
-        }
-
-        .add-product-form button {
-            background-color: #ff6200;
-            padding: 10px 15px;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .add-product-form button:hover {
-            background-color: #e74c3c;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #333333;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 60%;
-            max-width: 500px;
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #ff6200;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        #addProductBtn {
-            margin-left: auto;
-            display: block;
-            margin-bottom: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Velocity Gym - Admin Dashboard</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/editProfile.css" />
 </head>
 <body>
 
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <ul class="nav">
-            <li><a href="${pageContext.request.contextPath}/profile">Profile</a></li>
-                <li><a href="${pageContext.request.contextPath}/dashboard">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/CustomerDetails">Customers</a></li>
-                <li><a href="${pageContext.request.contextPath}/EditProduct">Edit Supplements</a></li>
+	<div class="container">
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<ul class="nav">
+				<li><a href="${pageContext.request.contextPath}/profile">Profile</a></li>
+				<li><a href="${pageContext.request.contextPath}/dashboard">Dashboard</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/CustomerDetails">Customers</a></li>
+				<li><a href="${pageContext.request.contextPath}/EditProduct">Edit
+						Supplements</a></li>
+			</ul>
+			<div class="logout">
+				<form action="${pageContext.request.contextPath}/logout"
+					method="post">
+					<input type="submit" class="nav-button" value="Logout"
+						style="background: none; border: none; color: #ff6200; font-weight: bold; cursor: pointer;" />
+				</form>
+			</div>
+		</div>
+
+		<!-- Content -->
+		<div class="content">
+			<div class="table-container">
+				<div class="table-header">
+					<h3>Manage Products</h3>
+					<button id="addProductBtn" class="btn-edit">
+						<i class="fas fa-plus"></i> Add Product
+					</button>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Product Name</th>
+							<th>Price</th>
+							<th>Category</th>
+							<th>Image path</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="product" items="${productList}">
+							<tr>
+								<td>${product.name}</td>
+								<td>Rs${product.price}</td>
+								<td>${product.category}</td>
+								<td>${product.imagePath}</td>
+								<td>
+									<div class="action-buttons">
+										<button class="btn-edit edit-product"
+											data-id="${product.id}"
+											data-name="${product.name}"
+											data-price="${product.price}"
+											data-category="${product.category}"
+											data-image="${product.imagePath}">
+											<i class="fas fa-edit"></i>
+										</button>
+										<button class="btn-delete delete-product"
+											data-id="${product.id}">
+											<i class="fas fa-trash"></i>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal for Add/Edit Product -->
+	<div class="modal-overlay" id="productModal">
+		<div class="modal">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalTitle">Add New Product</h4>
+				<button class="close-modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<form id="productForm"
+					action="${pageContext.request.contextPath}/EditProduct"
+					method="post" enctype="multipart/form-data">
+					<input type="hidden" name="productId" id="productId" />
+					<div class="form-group">
+						<label for="productName">Product Name</label> <input type="text"
+							class="form-control" name="productName" id="productName"
+							placeholder="Enter product name" required />
+					</div>
+					<div class="form-group">
+						<label for="price">Price (Rs)</label> <input type="number"
+							class="form-control" name="price" id="price"
+							placeholder="Enter price" step="0.01" min="0" required />
+					</div>
+					<div class="form-group">
+						<label for="category">Category</label> <select
+							class="form-control" name="category" id="category" required>
+							<option value="">Select Category</option>
+							<option value="Creatine">Creatine</option>
+							<option value="Protein">Protein</option>
+							<option value="Pre-Workout">Pre-Workout</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="productImage">Product Image</label> <input type="file"
+							class="form-control" name="productImage" id="productImage"
+							accept="image/*" />
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-edit" id="saveProduct">Save
+					Product</button>
+				<button type="button" class="btn-delete close-btn">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Delete Confirmation Modal -->
+	<div class="modal-overlay confirm-modal" id="deleteModal">
+		<div class="modal">
+			<div class="modal-header">
+				<h4 class="modal-title">Confirm Deletion</h4>
+				<button class="close-modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-icon">
+					<i class="fas fa-exclamation-triangle"></i>
+				</div>
+				<h4>Are you sure you want to delete this product?</h4>
+				<p>This action cannot be undone.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn-delete" id="confirmDelete">Delete</button>
+				<button class="btn-edit close-btn">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+        // Modal functionality
+        const productModal = document.getElementById('productModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const closeButtons = document.querySelectorAll('.close-modal, .close-btn');
+        const modalTitle = document.getElementById('modalTitle');
+        const productForm = document.getElementById('productForm');
+        
+        // Add Product button
+        addProductBtn.addEventListener('click', function() {
+            modalTitle.textContent = 'Add New Product';
+            productForm.reset();
+            document.getElementById('productId').value = '';
+            productModal.style.display = 'flex';
+        });
+        
+        // Edit buttons
+        const editButtons = document.querySelectorAll('.edit-product');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const productName = this.getAttribute('data-name');
+                const price = this.getAttribute('data-price');
+                const category = this.getAttribute('data-category');
                 
-            </ul>
-            <div class="logout">
-                <form action="${pageContext.request.contextPath}/logout" method="post">
-                    <input type="submit" class="nav-button" value="Logout" style="background: none; border: none; color: #ff6200; font-weight: bold; cursor: pointer;" />
-                </form>
-            </div>
-        </div>
-
-        <!-- Content -->
-        <div class="content">
-            <button id="addProductBtn" class="btn-edit">Add Product</button>
-
-            <div class="table-container">
-                <h3>Manage Products</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Category</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Dummy Data -->
-                        <tr>
-                            <td>Protein Powder</td>
-                            <td>$29.99</td>
-                            <td>Supplements</td>
-                            <td>
-                                <button class="btn-edit" onclick="openEditModal('1', 'Protein Powder', '29.99', 'Supplements', '')">Edit</button>
-                                <form action="${pageContext.request.contextPath}/deleteProduct" method="post" style="display:inline;">
-                                    <input type="hidden" name="productId" value="1" />
-                                    <input type="submit" value="Delete" class="btn-delete" />
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Dumbbells</td>
-                            <td>$49.99</td>
-                            <td>Equipment</td>
-                            <td>
-                                <button class="btn-edit" onclick="openEditModal('2', 'Dumbbells', '49.99', 'Equipment', '')">Edit</button>
-                                <form action="${pageContext.request.contextPath}/deleteProduct" method="post" style="display:inline;">
-                                    <input type="hidden" name="productId" value="2" />
-                                    <input type="submit" value="Delete" class="btn-delete" />
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Add/Edit Product -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3 id="modalTitle">Add New Product</h3>
-            <form id="productForm" action="${pageContext.request.contextPath}/addOrUpdateProduct" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="productId" id="productId" />
-                <input type="text" name="productName" id="productName" placeholder="Product Name" required />
-                <input type="number" name="price" id="price" placeholder="Price" step="0.01" min="0" required />
-                <select name="category" id="category" required>
-                    <option value="">Select Category</option>
-                    <option value="Supplements">Supplements</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="Apparel">Apparel</option>
-                </select>
-                <input type="file" name="productImage" id="productImage" accept="image/*" />
-                <button type="submit" id="submitBtn">Save Product</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // Get the modal
-        var modal = document.getElementById("productModal");
-        var form = document.getElementById("productForm");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("addProductBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal in "add" mode
-        btn.onclick = function() {
-            document.getElementById("modalTitle").innerHTML = "Add New Product";
-            document.getElementById("productId").value = "";
-            document.getElementById("productName").value = "";
-            document.getElementById("price").value = "";
-            document.getElementById("category").value = "";
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Close the modal when clicking outside of it
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
+                modalTitle.textContent = 'Edit Product';
+                document.getElementById('productId').value = productId;
+                document.getElementById('productName').value = productName;
+                document.getElementById('price').value = price;
+                document.getElementById('category').value = category;
+                
+                productModal.style.display = 'flex';
+            });
+        });
+        
+        // Delete buttons
+        const deleteButtons = document.querySelectorAll('.delete-product');
+        let productIdToDelete = null;
+        
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                productIdToDelete = this.getAttribute('data-id');
+                deleteModal.style.display = 'flex';
+            });
+        });
+        
+        // Close modals
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                productModal.style.display = 'none';
+                deleteModal.style.display = 'none';
+            });
+        });
+        
+        // Save product
+        document.getElementById('saveProduct').addEventListener('click', function() {
+            // Submit the form
+            document.getElementById('productForm').submit();
+        });
+        
+        // Confirm delete
+        document.getElementById('confirmDelete').addEventListener('click', function() {
+            // Create and submit a form to delete the product
+            const deleteForm = document.createElement('form');
+            deleteForm.method = 'POST';
+            deleteForm.action = '${pageContext.request.contextPath}/DeleteProduct';
+            
+            const productIdInput = document.createElement('input');
+            productIdInput.type = 'hidden';
+            productIdInput.name = 'productId';
+            productIdInput.value = productIdToDelete;
+            
+            deleteForm.appendChild(productIdInput);
+            document.body.appendChild(deleteForm);
+            deleteForm.submit();
+            
+            deleteModal.style.display = 'none';
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === productModal) {
+                productModal.style.display = 'none';
             }
-        }
-
-        // Open the modal with existing product data for editing
-        function openEditModal(id, name, price, category, imageUrl) {
-            document.getElementById("modalTitle").innerHTML = "Edit Product";
-            document.getElementById("productId").value = id;
-            document.getElementById("productName").value = name;
-            document.getElementById("price").value = price;
-            document.getElementById("category").value = category;
-            modal.style.display = "block";
-        }
+            if (event.target === deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+        });
     </script>
 
 </body>

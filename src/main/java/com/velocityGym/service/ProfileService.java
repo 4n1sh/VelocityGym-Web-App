@@ -10,6 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ * Service class for managing user profile-related operations such as fetching,
+ * updating user details, and validating phone and email uniqueness.
+ */
+
 public class ProfileService {
 	private Connection dbConn;
 
@@ -22,8 +27,13 @@ public class ProfileService {
 	}
 
 	/**
-	 * Fetch all user details by username
+	 * Fetches user details by their username.
+	 * 
+	 * @param username The username of the user whose details are to be fetched.
+	 * @return The UserModel object containing user details if found, or null if
+	 *         not.
 	 */
+
 	public UserModel getUserDetails(String username) {
 		if (dbConn == null) {
 			System.err.println("DB connection is null in ProfileService.");
@@ -56,7 +66,15 @@ public class ProfileService {
 		return null;
 	}
 
-	public Boolean editUser(UserModel userModel,String username) {
+	/**
+	 * Edits a user's profile based on the provided UserModel object and username.
+	 * 
+	 * @param userModel The UserModel object containing the updated user details.
+	 * @param username  The username of the user whose profile is being updated.
+	 * @return true if the update is successful, false otherwise.
+	 */
+
+	public Boolean editUser(UserModel userModel, String username) {
 		if (dbConn == null) {
 			System.err.println("Database connection is not available.");
 			return false;
@@ -67,7 +85,6 @@ public class ProfileService {
 			String dob = userModel.getDob();
 			LocalDate localDate = LocalDate.parse(dob); // Converts String to LocalDate
 			Date sqlDob = Date.valueOf(localDate); // Converts LocalDate to java.sql.Date
-
 
 			ps.setString(1, userModel.getFullName());
 			ps.setString(2, userModel.getGender());
@@ -84,40 +101,54 @@ public class ProfileService {
 			return false;
 		}
 	}
-	 public boolean isEmailTaken(String email ,String username) {
-    	 if (dbConn == null) {
-             return false;
-         }
-        String query = "SELECT 1 FROM user WHERE email = ? AND username !=?";
-        try (PreparedStatement ps = dbConn.prepareStatement(query)) {
-            ps.setString(1, email);
-            ps.setString(2, username);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    /**
-     * Checks if an phone already exists in the database.
-     *
-     * @param phone the phone to check
-     * @return true if taken, false otherwise
-     */
-    public boolean isPhoneTaken(String phone, String username) {
-    	 if (dbConn == null) {
-             return false;
-         }
-        String query = "SELECT 1 FROM user WHERE phone = ? AND username !=?";
-        try (PreparedStatement ps = dbConn.prepareStatement(query)) {
-            ps.setString(1, phone);
-            ps.setString(2, username);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
+	/**
+	 * Checks if the provided email is already taken by another user, excluding the
+	 * current user.
+	 * 
+	 * @param email    The email to check.
+	 * @param username The username of the user to exclude from the check.
+	 * @return true if the email is taken, false otherwise.
+	 */
+
+	public boolean isEmailTaken(String email, String username) {
+		if (dbConn == null) {
+			return false;
+		}
+		String query = "SELECT 1 FROM user WHERE email = ? AND username !=?";
+		try (PreparedStatement ps = dbConn.prepareStatement(query)) {
+			ps.setString(1, email);
+			ps.setString(2, username);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Checks if the provided email is already taken by another user, excluding the
+	 * current user.
+	 * 
+	 * @param email    The email to check.
+	 * @param username The username of the user to exclude from the check.
+	 * @return true if the email is taken, false otherwise.
+	 */
+
+	public boolean isPhoneTaken(String phone, String username) {
+		if (dbConn == null) {
+			return false;
+		}
+		String query = "SELECT 1 FROM user WHERE phone = ? AND username !=?";
+		try (PreparedStatement ps = dbConn.prepareStatement(query)) {
+			ps.setString(1, phone);
+			ps.setString(2, username);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

@@ -15,6 +15,17 @@
 
 <section class="product-section">
 	<div class="container">
+<%
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+%>
+    <div id="popup-message" class="popup"><%= successMessage %></div>
+<%
+        session.removeAttribute("successMessage");
+    }
+%>
+
+	
 		<h2 class="section-title">Explore Our Supplements</h2>
 
 		<!-- Search & Filter -->
@@ -54,8 +65,11 @@
 					Rs.
 					<%=product.getPrice()%></p>
 				<p class="product-category"><%=product.getCategory()%></p>
-				<a href="productDetails?id=<%=product.getId()%>" class="btn">View
-					Details</a>
+				<form action="product" method="post">
+					<input type="hidden" name="productId" value="<%=product.getId()%>">
+					<button type="submit" class="btn">Buy Now</button>
+				</form>
+
 			</div>
 			<%
 			}
@@ -68,5 +82,14 @@
 		</div>
 	</div>
 </section>
+<script>
+    // Hide popup after 2 seconds
+    setTimeout(function () {
+        var popup = document.getElementById("popup-message");
+        if (popup) {
+            popup.style.display = "none";
+        }
+    }, 2000);
+</script>
 
 <jsp:include page="footer.jsp" />

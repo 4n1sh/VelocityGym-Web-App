@@ -50,8 +50,15 @@ public class LoginController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Authenticates the user using the provided username and password, sets session and role-based cookie,
+	 * and redirects based on user role. Displays error messages if login fails or a database error occurs.
+	 *
+	 * @param request  the HttpServletRequest containing username and password
+	 * @param response the HttpServletResponse used for redirection or forwarding to login page
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an input or output error is detected during handling
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");

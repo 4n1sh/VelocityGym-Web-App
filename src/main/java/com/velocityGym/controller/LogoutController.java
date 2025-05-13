@@ -25,9 +25,15 @@ public class LogoutController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /**
+     * Handles user logout via POST.
+     * Deletes the role cookie, invalidates the current session, and redirects the user to the login page.
+     *
+     * @param request  the HttpServletRequest object
+     * @param response the HttpServletResponse object used for redirection
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an input or output error is detected
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CookieUtil.deleteCookie(response, "role");
 		SessionUtil.invalidateSession(request);

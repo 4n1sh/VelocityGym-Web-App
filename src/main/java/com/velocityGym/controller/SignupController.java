@@ -50,14 +50,39 @@ public class SignupController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles HTTP POST requests for processing the registration form. It validates the input,
+	 * handles image file upload, and interacts with the SignupService to store the user data.
+	 * If validation fails, the form is repopulated with error messages. If the validation is successful,
+	 * the user is added to the database and redirected to the login page.
+	 * 
+	 * @param request The HttpServletRequest object that contains the request data.
+	 * @param response The HttpServletResponse object used to send the response.
+	 * @throws ServletException If an error occurs during request processing.
+	 * @throws IOException If an error occurs during input/output operations.
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		validateRegistrationForm(request, response);
 
 	}
+	/**
+	 * Validates the user registration form by checking the following:
+	 * - Full name, username, gender, date of birth, phone number, email, and password
+	 * - Whether the password and confirm password match
+	 * - Whether the username, email, and phone number are already taken in the database
+	 * - If the image file is uploaded successfully
+	 * 
+	 * If any validation fails, error messages are set as request attributes and the form is 
+	 * repopulated for the user to correct. If all validations pass, the user data is stored 
+	 * in the database, and the user is redirected to the login page.
+	 * 
+	 * @param request The HttpServletRequest object containing the request data.
+	 * @param response The HttpServletResponse object used to send the response.
+	 * @throws ServletException If an error occurs during validation.
+	 * @throws IOException If an error occurs during input/output operations.
+	 */
+
 	public void validateRegistrationForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Extract all parameters

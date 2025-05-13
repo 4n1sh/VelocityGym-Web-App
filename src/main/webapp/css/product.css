@@ -140,21 +140,32 @@ body {
     margin-top: 40px;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-    .product-card {
-        width: 31%;
-    }
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
-@media (max-width: 768px) {
-    .product-card {
-        width: 47%;
-    }
+.btn:hover {
+    background-color: #c0392b;
 }
-
-@media (max-width: 480px) {
-    .product-card {
-        width: 100%;
-    }
+.popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 99999; /* Increased z-index */
+    animation: fadeOut 2s forwards;
+    font-weight: bold;
 }

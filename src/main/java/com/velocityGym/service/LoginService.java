@@ -76,6 +76,14 @@ public class LoginService {
 		return decryptedPassword.equals(userModel.getPassword());
 	}
 
+	/**
+	 * Retrieves the role of a user from the database based on the provided
+	 * username.
+	 *
+	 * @param user the UserModel object containing the username to look up
+	 * @return the role of the user as a String, or null if not found or on error
+	 */
+
 	public String getDbRole(UserModel user) {
 		if (dbConn == null) {
 			System.err.println("DB connection is null in LoginService.");
